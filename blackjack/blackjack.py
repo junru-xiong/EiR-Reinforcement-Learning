@@ -35,11 +35,9 @@ def dealer_policy(sum_dealer_cards):
 # policy for player:
 def player_policy(q, t):
     # p = np.array([v/t for v in q.values()])
-    p = np.array([q[(2, 7, 10), 0], q[(2, 7, 10), 1]])/t ###### why (2,7,10) why not random?
-    print('ppppppp', p)
+    p = np.array([q[(2, 7, 10), 0], q[(2, 7, 10), 1]])/t  #*! why (2,7,10) why not random?
     prob_actions = np.exp(p) / np.sum(np.exp(p))
-    print('prob_actions', prob_actions)
-    ###### why not just argmax below?
+    #*! why not just argmax below?
     cumulative_probability = 0.0
     choice = random.uniform(0, 1)
     for a, pr in enumerate(prob_actions):
@@ -54,7 +52,7 @@ def play(player_sum, left_cards, player_action):
         player_card = get_card(left_cards)
         left_cards.remove(player_card)
         player_sum += card_value(player_card)
-        if player_card == 1: #player draws an ace       ##### ace can also be 11
+        if player_card == 1: #player draws an ace       #*! ace can also be 11
             player_sum -= 10
         if player_sum > 21:
             return True, -1, player_sum
@@ -136,7 +134,7 @@ if __name__ == '__main__':
             # s2 = state
             # a2 = player_policy(Q, T)
             # Q[state, action] = Q[state, action] + ALPHA * (reward + Q[s2, a2] - Q[state, action])
-            ##### TD algorithm?
+            #*! TD algorithm?
             Q[state, action] = Q[state, action] + ALPHA * (reward - Q[state, action])
             # print(f"Player Sum: {player_sum} and Dealer Sum: {dealer_sum}")
             print(f"Reward in episode# {episode+1}: {reward} for player's action: {action}")
